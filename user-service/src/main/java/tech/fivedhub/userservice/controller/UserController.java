@@ -27,4 +27,9 @@ public class UserController {
         return userService.getUserById(userId);
     }
 
+    @GetMapping("/{lastName}")
+    public UserDto getUserByLastname(@PathVariable @NotBlank String lastName) {
+        log.info("Requesting user with Last Name {}.", lastName);
+        return userService.getUserByLastName(lastName);
+    }
 }
