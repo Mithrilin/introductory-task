@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
         User user =  optionalUser.get();
         UserDto userDto = userMapper.userToUserDto(user);
-        log.info("User with ID {} returned.", userId);
+        log.debug("User with ID {} returned.", userId);
         return userDto;
     }
 
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
         User user =  optionalUser.get();
         UserDto userDto = userMapper.userToUserDto(user);
-        log.info("User with Last Name {} returned.", lastName);
+        log.debug("User with Last Name {} returned.", lastName);
         return userDto;
     }
 }

@@ -23,13 +23,13 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public UserDto getUserById(@PathVariable @Positive Long userId) {
-        log.info("Requesting user with ID {}.", userId);
+        log.debug("Requesting user with ID {}.", userId);
         return userService.getUserById(userId);
     }
 
     @GetMapping("/{lastName}")
     public UserDto getUserByLastname(@PathVariable @NotBlank String lastName) {
-        log.info("Requesting user with Last Name {}.", lastName);
+        log.debug("Requesting user with Last Name {}.", lastName);
         return userService.getUserByLastName(lastName);
     }
 }
