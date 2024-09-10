@@ -21,5 +21,10 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/{userId}")
+    public UserDto getUserById(@PathVariable @Positive Long userId) {
+        log.info("Requesting user with ID {}.", userId);
+        return userService.getUserById(userId);
+    }
 
 }
