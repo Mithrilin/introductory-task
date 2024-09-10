@@ -40,4 +40,20 @@ public class CompanyServiceImpl implements CompanyService {
         log.debug("Company with ID {} returned.", companyId);
         return companyDto;
     }
+
+    @Override
+    public CompanyDto getCompanyByName(String name) {
+        Optional<Company> optionalCompany = companyRepository.findByName(name);
+
+        if (optionalCompany.isEmpty()) {
+            log.error("Company with name {} missing from DB.", name);
+            throw new NotFoundException(String.format("Company with name %s missing from DB.", name));
+        }
+
+        Company company = optionalCompany.get();
+        List<UserDto> employeesList = userClient.getEmployeesList(company.getEmployees());
+        CompanyDto companyDto = companyMapper.companyToCompanyDto(company, employeesList);
+        log.debug("Company with name {} returned.", name);
+        return companyDto;
+    }
 }

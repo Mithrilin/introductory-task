@@ -5,4 +5,6 @@ import tech.fivedhub.companyservice.dto.CompanyDto;
 public interface CompanyService {
 
     CompanyDto getCompanyById(Long companyId);
+
+    CompanyDto getCompanyByName(String name);
 }

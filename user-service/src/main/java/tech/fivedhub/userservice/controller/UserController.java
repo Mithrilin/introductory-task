@@ -1,6 +1,5 @@
 package tech.fivedhub.userservice.controller;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/{lastName}")
-    public UserDto getUserByLastname(@PathVariable @NotBlank String lastName) {
+    public UserDto getUserByLastname(@PathVariable String lastName) {
         log.debug("Requesting user with Last Name {}.", lastName);
         return userService.getUserByLastName(lastName);
     }

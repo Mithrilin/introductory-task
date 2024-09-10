@@ -25,4 +25,10 @@ public class CompanyController {
         log.debug("Requesting company with ID {}.", companyId);
         return companyService.getCompanyById(companyId);
     }
+
+    @GetMapping("/{name}")
+    public CompanyDto getCompanyByName(@PathVariable String name) {
+        log.debug("Requesting company with name {}.", name);
+        return companyService.getCompanyByName(name);
+    }
 }
