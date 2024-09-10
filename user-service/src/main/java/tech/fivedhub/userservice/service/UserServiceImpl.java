@@ -9,6 +9,8 @@ import tech.fivedhub.userservice.mapper.UserMapper;
 import tech.fivedhub.userservice.model.User;
 import tech.fivedhub.userservice.repository.UserRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -31,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
         User user =  optionalUser.get();
         UserDto userDto = userMapper.userToUserDto(user);
-        log.info("User with ID {} returned.", userId);
+        log.debug("User with ID {} returned.", userId);
         return userDto;
     }
 
@@ -46,7 +48,21 @@ public class UserServiceImpl implements UserService {
 
         User user =  optionalUser.get();
         UserDto userDto = userMapper.userToUserDto(user);
-        log.info("User with Last Name {} returned.", lastName);
+        log.debug("User with Last Name {} returned.", lastName);
         return userDto;
+    }
+
+    @Override
+    public List<UserDto> getUsersByIds(List<Long> ids) {
+        List<User> users = userRepository.findByIdIn(ids);
+
+        if (users.isEmpty()) {
+            log.info("There were no users with the specified ids.");
+            return new ArrayList<>();
+        }
+
+        List<UserDto> userDtos = userMapper.userListToUserDtoList(users);
+        log.debug("The list of users of size {} has been returned.", users.size());
+        return userDtos;
     }
 }
