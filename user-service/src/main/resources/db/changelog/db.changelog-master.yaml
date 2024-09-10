@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: rmanukyan
+      changes:
+        - sqlFile:
+            dbms: h2
+            path: migrations/v1_create_table_users.sql
+            relativeToChangelogFile: true
