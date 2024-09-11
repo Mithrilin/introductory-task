@@ -16,7 +16,7 @@ public class UserClient {
 
     private final WebClient webClient;
 
-    public UserClient(@Value("${user-server.url}") String userServerUrl) {
+    public UserClient(@Value("${application.user-server-url}") String userServerUrl) {
         this.webClient = WebClient.create(userServerUrl);
     }
 

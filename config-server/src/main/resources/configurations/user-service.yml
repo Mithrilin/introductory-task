@@ -1,0 +1,36 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:userservice
+    username: admin
+    password: admin
+
+server:
+  port: 8080
+
+eureka:
+  instance:
+    prefer-ip-address: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+      springframework:
+        orm:
+          jpa: INFO
+          JpaTransactionManager: DEBUG
+        transaction:
+          interceptor: TRACE
