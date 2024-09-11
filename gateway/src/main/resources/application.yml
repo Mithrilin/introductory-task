@@ -1,5 +1,16 @@
 spring:
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888}
   application:
-    name: gateway-service
+    name: gateway
+
+eureka:
+  instance:
+    hostname: ${EUREKA_SERVER_HOST:localhost}
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+
+server:
+  port: 8222

@@ -1,0 +1,73 @@
+version: '3.8'
+services:
+  config-server:
+    build: config-server
+    image: config-server-image
+    container_name: config-server
+    hostname: config-server
+    ports:
+      - "8888:8888"
+    environment:
+      - EUREKA_SERVER_HOST=discovery-server
+      - EUREKA_SERVER_URL=http://discovery-server:8761/eureka/
+    restart: on-failure
+
+  discovery-server:
+    build: discovery-server
+    image: discovery-server-image
+    container_name: discovery-server
+    hostname: discovery-server
+    ports:
+      - "8761:8761"
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+    depends_on:
+      - config-server
+    restart: on-failure
+
+  gateway:
+    build: gateway
+    image: gateway-image
+    container_name: gateway
+    hostname: gateway
+    ports:
+      - "8222:8222"
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+      - EUREKA_SERVER_HOST=discovery-server
+      - EUREKA_SERVER_URL=http://discovery-server:8761/eureka/
+    restart: on-failure
+
+  user-service:
+    build: user-service
+    image: user-service-image
+    container_name: user-service
+    hostname: user-service
+    ports:
+      - "8080:8080"
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+      - EUREKA_SERVER_HOST=discovery-server
+      - EUREKA_SERVER_URL=http://discovery-server:8761/eureka/
+    depends_on:
+      - config-server
+      - discovery-server
+    restart: on-failure
+
+  company-service:
+    build: company-service
+    image: company-service-image
+    container_name: company-service
+    hostname: company-service
+    ports:
+      - "8090:8090"
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+      - USER_SERVICE_URL=http://gateway:8222
+      - EUREKA_SERVER_HOST=discovery-server
+      - EUREKA_SERVER_URL=http://discovery-server:8761/eureka/
+    depends_on:
+      - config-server
+      - discovery-server
+      - user-service
+    restart: on-failure
