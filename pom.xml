@@ -18,6 +18,7 @@
         <module>company-service</module>
         <module>discovery-server</module>
         <module>config-server</module>
+        <module>gateway</module>
     </modules>
 
     <properties>
